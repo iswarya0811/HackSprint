@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Complaint - Citizen Complaint Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="homepage">
+
+<!-- ✅ NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left">Citizen Complaint Hub</div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="features.html" class="nav-link">Features</a>
+    <a href="how-it-works.html" class="nav-link">How It Works</a>
+    <a href="register.html" class="nav-link active">Register</a>
+    <a href="track.html" class="nav-link">Track</a>
+  </div>
+</nav>
+
+<!-- ✅ MAIN CONTENT -->
+<main>
+  <section class="section">
+    <div class="section-header">
+      <h2>Register a Complaint</h2>
+      <p>Please fill all required details carefully.</p>
+    </div>
+
+    <div class="form-layout">
+
+      <!-- ✅ COMPLAINT FORM -->
+      <form class="card complaint-form">
+
+        <!-- NAME & EMAIL -->
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="citizen-name" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="citizen-email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <!-- PHONE & CATEGORY -->
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="citizen-phone" placeholder="+91-XXXXXXXXXX">
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category">
+              <option value="">Select category</option>
+              <option>Garbage Not Collected</option>
+              <option>Streetlights Not Working</option>
+              <option>Potholes / Damaged Roads</option>
+              <option>Water Supply Issue</option>
+              <option>Drainage / Sewage Problem</option>
+              <option>Electricity Power Cut</option>
+              <option>Public Toilet Issue</option>
+              <option>Noise Pollution</option>
+              <option>Illegal Parking</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- LOCATION -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Location / Area</label>
+            <input type="text" name="location" placeholder="Street, Area, City">
+          </div>
+        </div>
+
+        <!-- COMPLAINT TITLE -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Complaint Title</label>
+            <input type="text" name="complaint-title" placeholder="Short summary of your issue" required>
+          </div>
+        </div>
+
+        <!-- COMPLAINT DETAILS -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Complaint Details</label>
+            <textarea name="complaint-details" rows="4" placeholder="Describe your issue in detail..." required></textarea>
+          </div>
+        </div>
+
+        <!-- PRIORITY & ATTACHMENT -->
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label>Priority</label>
+            <select name="priority">
+              <option>Normal</option>
+              <option>High</option>
+              <option>Critical</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Attachment (optional)</label>
+            <input type="file" name="attachment" accept="image/*,application/pdf">
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-actions">
+          <button type="submit" class="btn primary-btn">Submit Complaint</button>
+          <p class="form-note">You will receive a Complaint ID after submission.</p>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- ✅ ALWAYS-PRESENT RESULT CARD (INITIALLY HIDDEN) -->
+    <div id="submission-result" class="card" style="margin-top:20px; display:none;">
+      <h3>Complaint Submitted ✅</h3>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <p style="margin:0;"><strong>ID:</strong></p>
+        <input
+          type="text"
+          id="copy-id-field"
+          readonly
+          style="padding:6px 10px; border-radius:6px; border:1px solid #ccc; font-weight:bold; min-width:220px;"
+        >
+        <button
+          type="button"
+          id="copy-id-btn"
+          class="btn ghost-btn"
+          style="padding:6px 12px;"
+        >
+          Copy ID
+        </button>
+      </div>
+      <p style="margin-top:8px;">Save or copy this ID to track your complaint.</p>
+    </div>
+
+  </section>
+</main>
+
+<!-- ✅ FOOTER -->
+<footer class="footer">
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Citizen Complaint Hub</p>
+  </div>
+</footer>
+
+<!-- ✅ SCRIPT -->
+<script>
+  // footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+  console.log("✅ register.html loaded");
+
+  const form = document.querySelector(".complaint-form");
+  const resultDiv = document.getElementById("submission-result");
+  const idInput = document.getElementById("copy-id-field");
+  const copyBtn = document.getElementById("copy-id-btn");
+
+  if (!form) {
+    alert("❌ Complaint form not found!");
+  }
+
+  // Copy function
+  function copyComplaintId() {
+    if (!idInput || !idInput.value) return;
+
+    // Modern API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(idInput.value)
+        .then(() => alert("✅ Complaint ID copied to clipboard!"))
+        .catch(() => fallbackCopy());
+    } else {
+      fallbackCopy();
+    }
+
+    function fallbackCopy() {
+      idInput.select();
+      idInput.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("✅ Complaint ID copied to clipboard!");
+    }
+  }
+
+  // Attach copy button click
+  if (copyBtn) {
+    copyBtn.addEventListener("click", copyComplaintId);
+  }
+
+  // Form submit handler
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    console.log("📨 Form submitted");
+
+    const endpoint = "http://localhost:3000/api/complaints/create";
+    const formData = new FormData(form);
+    const btn = form.querySelector("button[type='submit']");
+
+    btn.disabled = true;
+    btn.innerText = "Submitting...";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData
+      });
+
+      console.log("📡 Server Response:", response.status);
+
+      const data = await response.json();
+      console.log("✅ Server Data:", data);
+
+      if (data.complaintId) {
+        // Show alert
+        alert("✅ Complaint Submitted Successfully!\n\nYour Complaint ID:\n" + data.complaintId);
+
+        // Fill the ID and show the result card
+        idInput.value = data.complaintId;
+        resultDiv.style.display = "block";
+
+        form.reset();
+      } else {
+        alert("❌ No Complaint ID received from server!");
+      }
+
+    } catch (error) {
+      console.error("❌ ERROR:", error);
+      alert("❌ Submission Failed!\n\n" + error.message);
+    }
+
+    btn.disabled = false;
+    btn.innerText = "Submit Complaint";
+  });
+</script>
+
+</body>
+</html>

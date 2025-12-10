@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Complaint Hub - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="homepage">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+          <span class="logo-icon">⚖️</span>
+          <span class="logo-text">Citizen Complaint Hub</span>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+          <span></span>
+      </label>
+      <div class="nav-right">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="features.html" class="nav-link">Features</a>
+          <a href="how-it-works.html" class="nav-link">How It Works</a>
+          <a href="register.html" class="nav-link">Register Complaint</a>
+          <a href="track.html" class="nav-link">Track Status</a>
+      </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Raise Your Voice. <span>We’ll Help It Reach.</span></h1>
+                <p>
+                    Citizen Complaint Hub is a one-stop platform for citizens to file, track,
+                    and manage complaints with transparency and ease.
+                </p>
+                <div class="hero-actions">
+                    <a href="register.html" class="btn primary-btn">Register a Complaint</a>
+                    <a href="track.html" class="btn ghost-btn">Track Existing Complaint</a>
+                </div>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <span class="meta-number">24/7</span>
+                        <span class="meta-label">Online Access</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-number">10K+</span>
+                        <span class="meta-label">Complaints Resolved</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-number">4.8★</span>
+                        <span class="meta-label">Citizen Rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <h2>Quick Complaint Snapshot</h2>
+                <ul class="snapshot-list">
+                    <li>
+                        <span class="bullet open"></span>
+                        <div>
+                            <p class="snapshot-title">Open Complaints</p>
+                            <p class="snapshot-value">128</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="bullet in-progress"></span>
+                        <div>
+                            <p class="snapshot-title">In Progress</p>
+                            <p class="snapshot-value">76</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="bullet resolved"></span>
+                        <div>
+                            <p class="snapshot-title">Resolved</p>
+                            <p class="snapshot-value">1,092</p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="snapshot-note">Data shown for demo purposes only.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <!-- (same footer code as above) -->
+    <footer class="footer">
+      <div class="footer-top">
+          <div class="footer-brand">
+              <span class="logo-icon">⚖️</span>
+              <span class="logo-text">Citizen Complaint Hub</span>
+              <p>Empowering citizens with a transparent and efficient complaint management system.</p>
+          </div>
+          <div class="footer-links">
+              <h4>Quick Links</h4>
+              <a href="index.html">Home</a>
+              <a href="register.html">Register Complaint</a>
+              <a href="track.html">Track Complaint</a>
+          </div>
+          <div class="footer-contact">
+              <h4>Contact</h4>
+              <p>Email: support@complainthub.gov</p>
+              <p>Helpline: 1800-000-000</p>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>© <span id="year"></span> Citizen Complaint Hub. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

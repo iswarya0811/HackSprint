@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Complaint - Citizen Complaint Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="homepage">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+          <span class="logo-icon">⚖️</span>
+          <span class="logo-text">Citizen Complaint Hub</span>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+          <span></span>
+      </label>
+      <div class="nav-right">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="features.html" class="nav-link">Features</a>
+          <a href="how-it-works.html" class="nav-link">How It Works</a>
+          <a href="register.html" class="nav-link">Register Complaint</a>
+          <a href="track.html" class="nav-link active">Track Status</a>
+      </div>
+    </nav>
+
+    <main>
+        <section class="section track-section">
+            <div class="section-header">
+                <h2>Track Complaint Status</h2>
+                <p>Enter your Complaint ID to see the latest updates.</p>
+            </div>
+
+            <div class="track-layout">
+                <form class="card track-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="complaint-id">Complaint ID</label>
+                            <input type="text" id="complaint-id" name="complaint-id" placeholder="e.g., CCH-2025-001234" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary-btn">Check Status</button>
+                    </div>
+                </form>
+
+                <div class="card track-preview">
+                    <h3>Complaint Timeline</h3>
+                    <p class="preview-note">Enter a valid Complaint ID to view its status.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+          <div class="footer-brand">
+              <span class="logo-icon">⚖️</span>
+              <span class="logo-text">Citizen Complaint Hub</span>
+              <p>Empowering citizens with a transparent and efficient complaint management system.</p>
+          </div>
+          <div class="footer-links">
+              <h4>Quick Links</h4>
+              <a href="index.html">Home</a>
+              <a href="register.html">Register Complaint</a>
+              <a href="track.html">Track Complaint</a>
+          </div>
+          <div class="footer-contact">
+              <h4>Contact</h4>
+              <p>Email: support@complainthub.gov</p>
+              <p>Helpline: 1800-000-000</p>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>© <span id="year"></span> Citizen Complaint Hub. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const trackForm = document.querySelector('.track-form');
+        const preview = document.querySelector('.track-preview');
+
+        function renderTimeline(timeline) {
+          if (!Array.isArray(timeline) || timeline.length === 0) {
+            preview.innerHTML = '<p class="preview-note">No timeline available for this complaint.</p>';
+            return;
+          }
+          let html = '<h3>Complaint Timeline</h3><ul class="timeline">';
+          timeline.forEach((item, idx) => {
+            const active = (idx === timeline.length - 1) ? ' active' : '';
+            const note = item.note ? ` · ${item.note}` : '';
+            html += `
+              <li>
+                <span class="timeline-dot${active}"></span>
+                <div>
+                  <p class="timeline-status">${item.status}</p>
+                  <p class="timeline-meta">${item.date || ''}${note}</p>
+                </div>
+              </li>
+            `;
+          });
+          html += '</ul>';
+          preview.innerHTML = html;
+        }
+
+        trackForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const idInput = document.getElementById('complaint-id');
+          const id = (idInput?.value || '').trim();
+          if (!id) {
+            alert('Please enter a Complaint ID.');
+            return;
+          }
+
+          const endpoint = `http://localhost:3000/api/complaints/${encodeURIComponent(id)}`;
+          try {
+            preview.innerHTML = '<p class="preview-note">Loading...</p>';
+            const res = await fetch(endpoint);
+            if (!res.ok) {
+              const txt = await res.text();
+              throw new Error(txt || `Server returned ${res.status}`);
+            }
+            const data = await res.json();
+            if (data.success && data.timeline) {
+              renderTimeline(data.timeline);
+            } else {
+              preview.innerHTML = `<p class="preview-note">No data found for ID ${id}.</p>`;
+            }
+          } catch (err) {
+            console.error(err);
+            preview.innerHTML = `<p class="preview-note">Error fetching timeline: ${err.message}</p>`;
+          }
+        });
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Complaint Hub - How It Works</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="homepage">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+          <span class="logo-icon">⚖️</span>
+          <span class="logo-text">Citizen Complaint Hub</span>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+          <span></span>
+      </label>
+      <div class="nav-right">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="features.html" class="nav-link">Features</a>
+          <a href="how-it-works.html" class="nav-link active">How It Works</a>
+          <a href="register.html" class="nav-link">Register Complaint</a>
+          <a href="track.html" class="nav-link">Track Status</a>
+      </div>
+    </nav>
+
+    <main>
+        <section class="section how-it-works">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Just three simple steps from complaint to resolution.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3>Register</h3>
+                    <p>Enter your details and describe the issue clearly.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3>Assign & Process</h3>
+                    <p>Your complaint is routed to the appropriate department.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3>Track & Resolve</h3>
+                    <p>Follow progress and get notified when it’s resolved.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <!-- same footer as previous pages -->
+      <div class="footer-top">
+          <div class="footer-brand">
+              <span class="logo-icon">⚖️</span>
+              <span class="logo-text">Citizen Complaint Hub</span>
+              <p>Empowering citizens with a transparent and efficient complaint management system.</p>
+          </div>
+          <div class="footer-links">
+              <h4>Quick Links</h4>
+              <a href="index.html">Home</a>
+              <a href="register.html">Register Complaint</a>
+              <a href="track.html">Track Complaint</a>
+          </div>
+          <div class="footer-contact">
+              <h4>Contact</h4>
+              <p>Email: support@complainthub.gov</p>
+              <p>Helpline: 1800-000-000</p>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>© <span id="year"></span> Citizen Complaint Hub. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
